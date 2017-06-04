@@ -26,6 +26,20 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+
+      <!-- 微信分享-->
+      <activity 
+          android:name=".wxapi.WXEntryActivity"
+          android:label="PlatformProject"
+          android:exported="true"
+      />
+      <!-- 微信支付-->
+      <activity 
+          android:name=".wxapi.WXPayEntryActivity"
+          android:label="PlatformProject"
+          android:exported="true"
+      />
+
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 

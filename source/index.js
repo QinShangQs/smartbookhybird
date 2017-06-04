@@ -4,6 +4,10 @@
  * @flow
  */
 
+ //http://www.cnblogs.com/zhangdw/p/6194345.html
+ //http://www.cnblogs.com/zhangdw/p/6194345.html
+ //https://github.com/yorkie/react-native-wechat
+
 import React, { Component } from 'react';
 import {
   AppRegistry,
