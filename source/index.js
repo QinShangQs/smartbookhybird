@@ -1,94 +1,53 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
- //http://www.cnblogs.com/zhangdw/p/6194345.html
- //http://www.cnblogs.com/zhangdw/p/6194345.html
- //https://github.com/yorkie/react-native-wechat
+//首页
 
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
   Text,
   View,
-  Dimensions,
-  TextInput
 } from 'react-native';
+//使用第三方跳转组件react-navigation
+import { StackNavigator } from 'react-navigation'; 
+//引入CSS
+import {indexStyle} from "./styles/indexStyle"
 
-let widthOfMargin = Dimensions.get('window').width * 0.05;
+//跳转后页面
+import homePage from "./views/home";
+import loginPage from "./views/login"
 
-export default class smartbookhybird extends Component {
+class index extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      inputedNum :'',
-      inputedPW:''
-    };
-    this.updatePW = this.updatePW.bind(this);
-  }
-  /**
-  * 实时同步输入号码
-  * @summery
-  */
-  updateNum(newText){
-    this.setState((state) => {
-      return {
-        inputedNum: newText
-      };
-    });
   }
 
-  updatePW(newText){
-    this.setState((state) => {
-      return {
-        inputedPW :newText
-      }
-    });
+  componentDidMount() {
+    this.timer = setTimeout(
+      () => { 
+          console.log('把一个定时器的引用挂在this上');
+          this.props.navigation.navigate('LoginPage');
+      },
+      500
+    );
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput style={styles.textInputStyle} 
-          placeholder={'请输入手机号'}
-          onChangeText = {(newText) => this.updateNum(newText)}
-         />
-        <Text style={styles.textPromptStyle}> 您输入的手机号： {this.state.inputedNum}</Text>
-        <TextInput style={styles.textInputStyle} 
-          placeholder={'请输入密码'}  
-          password={true}
-          onChangeText={this.updatePW}
-          />
-        <Text style={styles.bigTextPrompt}> 确定 </Text>
+      <View style={indexStyle.container}>
+        <Text style={indexStyle.bigTextPrompt} > 锐文小说阅读APP </Text>
       </View>
     );
   }
+
+  componentWillUnmount() {
+    this.timer && clearTimeout(this.timer);
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor:'white',
-  },
-  textInputStyle:{
-    margin:widthOfMargin,
-    backgroundColor:'gray',
-    fontSize : 20
-  },
-  textPromptStyle: {
-    margin: widthOfMargin,
-    fontSize:20
-  },
-  bigTextPrompt :{
-    margin:widthOfMargin,
-    backgroundColor:'gray',
-    color:'white',
-    textAlign:'center',
-    fontSize:30
-  }
-});
+const IndexApp = StackNavigator({  
+    Index: {screen: index},  
+    HomePage:{screen:homePage},
+    LoginPage:{screen:loginPage}
+});  
 
-AppRegistry.registerComponent('smartbookhybird', () => smartbookhybird);
+export default IndexApp;
+
